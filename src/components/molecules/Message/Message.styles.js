@@ -6,10 +6,10 @@ export const MessageWrapper = styled.span`
   min-width: 20%;
   height: min-content;
   border-radius: 50px;
-  background-color: ${({ author }) => (author === "you" && "#00ADB5") || (author === "else" && "#666E7A")};
+  background-color: ${({ author }) => (author === "you" && "#00ADB5") || (author !== "you" && "#666E7A")};
   color: white;
-  align-self: ${({ author }) => (author === "you" && "flex-end") || (author === "else" && "flex-start")};
-  left: ${({ author }) => (author === "you" && "-10%") || (author === "else" && "10%")};
+  align-self: ${({ author }) => (author === "you" && "flex-end") || (author !== "you" && "flex-start")};
+  left: ${({ author }) => (author === "you" && "-10%") || (author !== "you" && "10%")};
   margin: 2% 0 0 0;
   &&:nth-child(1) {
     margin: 0;
@@ -27,6 +27,7 @@ export const MessageContent = styled.p`
   justify-content: left;
   align-items: center;
   border-radius: 50px;
+  font-size: 24px;
 
   @media (max-width: 480px) {
     padding: 15px;
@@ -43,4 +44,10 @@ export const Author = styled.h2`
   @media (max-width: 480px) {
     text-align: center;
   }
+`;
+
+export const MessageTime = styled.h3`
+  position: absolute;
+  left: 7%;
+  opacity: 0.7;
 `;

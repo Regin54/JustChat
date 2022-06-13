@@ -5,7 +5,7 @@ const Input = styled.textarea`
   width: 80%;
   height: 100%;
   border: none;
-  font-size: 26px;
+  font-size: 28px;
   background: #ebebeb;
   padding: 0.5%;
   resize: none;

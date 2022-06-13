@@ -2,7 +2,7 @@ import { Wrapper } from "./Root.styles.js";
 import Chat from "./components/organisms/Chat/Chat.js";
 import MessageBar from "./components/organisms/MessageBar/MessageBar.js";
 
-function App() {
+function Root() {
   return (
     <Wrapper>
       <Chat />
@@ -11,4 +11,4 @@ function App() {
   );
 }
 
-export default App;
+export default Root;
