@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Wrapper } from "./MessageBar.styles.js";
-import Input from "../../atoms/Input.js";
+import TextArea from "../../atoms/TextArea.js";
 import SendButton from "../../atoms/SendButton.js";
 import EmotesButton from "../../atoms/EmotesButton.js";
 import { IconContext } from "react-icons";
@@ -17,17 +17,19 @@ const MessageBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addDoc(collection(db, "messages"), {
-      author: "Adrian Silski",
-      content: message,
-      created: Timestamp.now(),
-    });
+    if (message !== "") {
+      addDoc(collection(db, "messages"), {
+        author: "Adrian Silski",
+        content: message,
+        created: Timestamp.now(),
+      });
+    }
   };
 
   return (
     <IconContext.Provider value={{ size: "65%" }}>
       <Wrapper>
-        <Input placeholder="Type your message in..." onChange={handleChange} />
+        <TextArea placeholder="Type your message in..." onChange={handleChange} />
         <EmotesButton>
           <AiOutlineSmile />
         </EmotesButton>

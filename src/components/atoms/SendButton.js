@@ -4,7 +4,7 @@ const SendButton = styled.div`
   position: relative;
   height: 100%;
   width: 10%;
-  background-color: #00adb5;
+  background-color: ${({ theme }) => theme.colors.cyan};
   border-radius: 0 15px 0 0;
   display: flex;
   justify-content: center;
@@ -13,7 +13,7 @@ const SendButton = styled.div`
   cursor: pointer;
 
   &&:hover {
-    background-color: #006b70;
+    background-color: ${({ theme }) => theme.colors.darkCyan};
   }
 `;
 

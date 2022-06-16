@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled, { ThemeConsumer } from "styled-components";
 
 const EmotesButton = styled.div`
   position: relative;
   height: 100%;
   width: 10%;
-  background-color: #393e46;
+  background-color: ${({ theme }) => theme.colors.lightGrey};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,7 @@ const EmotesButton = styled.div`
   transition: all 0.2s ease-in-out;
 
   &&:hover {
-    background-color: #4f555e;
+    background-color: ${({ theme }) => theme.colors.darkGrey};
   }
 `;
 

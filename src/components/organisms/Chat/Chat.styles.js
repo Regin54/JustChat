@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  scroll-behavior: smooth;
   top: -5%;
   position: relative;
   width: 100%;
