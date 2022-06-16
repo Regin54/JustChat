@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: #222831;
+  background-color: ${({ theme }) => theme.colors.grey};
   color: white;
   overflow: hidden;
 `;
