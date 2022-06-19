@@ -30,7 +30,9 @@ const Chat = () => {
       <Wrapper>
         {messages &&
           messages.map((message) => {
-            return <Message author={"you"} key={message.created} content={message.content} date={message.created} />;
+            return (
+              <Message author={message.author} key={message.created} content={message.content} date={message.created} />
+            );
           })}
         <div ref={messagesEndRef} />
       </Wrapper>

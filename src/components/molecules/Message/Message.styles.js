@@ -2,14 +2,21 @@ import styled from "styled-components";
 
 export const TooltipText = styled.span`
   display: none;
-  width: 120px;
+  width: 200px;
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
-  padding: 5px 0;
+  height: 100%;
   border-radius: 6px;
   position: absolute;
-  left: 25px;
+  right: ${({ author }) => (author === "you" && "-170px") || (author !== "you" && "100%")};
   z-index: 1;
+
+  @media (max-width: 480px) {
+    display: inline;
+    right: 0;
+    top: -13px;
+    font-size: 14px;
+  }
 `;
 
 export const MessageWrapper = styled.span`
@@ -30,11 +37,18 @@ export const MessageWrapper = styled.span`
   }
 
   &&:hover ${TooltipText} {
-    display: block;
+    display: inline;
+    text-align: center;
+
+    @media (max-width: 480px) {
+      display: inline;
+    }
   }
 
   @media (max-width: 480px) {
-    max-width: 95%;
+    min-width: 78%;
+    max-width: 90%;
+    left: 5%;
   }
 `;
 
@@ -51,19 +65,20 @@ export const MessageContent = styled.p`
 `;
 
 export const Author = styled.h2`
+  display: ${({ author }) => (author === "you" && "none") || (author !== "you" && "inline")};
   position: relative;
-  text-align: ${({ author }) => (author === "you" && "right") || (author === "else" && "left")};
   opacity: 0.7;
-  margin-top: 2%;
-  margin-bottom: 0;
-  right: 60px;
+  left: 25px;
+
   @media (max-width: 480px) {
     text-align: center;
   }
 `;
 
 export const MessageTime = styled.h3`
-  position: absolute;
+  position: relative;
+  margin: 0;
+  padding: 0;
   left: 7%;
   opacity: 0.7;
 `;

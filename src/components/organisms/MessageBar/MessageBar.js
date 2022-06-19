@@ -7,9 +7,23 @@ import { IconContext } from "react-icons";
 import { AiOutlineSend, AiOutlineSmile } from "react-icons/ai";
 import { db } from "../../../firebase.js";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { auth } from "../../../firebase.js";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const MessageBar = () => {
   const [message, setMessage] = useState("");
+  const [author, setAuthor] = useState("");
+
+  const signInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((res) => {
+        setAuthor(res.user.email);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const handleChange = (e) => {
     setMessage(e.target.value);
@@ -19,7 +33,7 @@ const MessageBar = () => {
     e.preventDefault();
     if (message !== "") {
       addDoc(collection(db, "messages"), {
-        author: "Adrian Silski",
+        author: author,
         content: message,
         created: Timestamp.now(),
       });
@@ -30,7 +44,7 @@ const MessageBar = () => {
     <IconContext.Provider value={{ size: "65%" }}>
       <Wrapper>
         <TextArea placeholder="Type your message in..." onChange={handleChange} />
-        <EmotesButton>
+        <EmotesButton onClick={signInWithGoogle}>
           <AiOutlineSmile />
         </EmotesButton>
         <SendButton onClick={handleSubmit}>
