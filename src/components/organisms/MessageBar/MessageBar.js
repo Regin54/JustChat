@@ -7,6 +7,7 @@ import { IconContext } from "react-icons";
 import { AiOutlineSend, AiOutlineSmile } from "react-icons/ai";
 import { db } from "../../../firebase.js";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { auth } from "../../../firebase.js";
 
 const MessageBar = () => {
   const [message, setMessage] = useState("");
@@ -19,7 +20,7 @@ const MessageBar = () => {
     e.preventDefault();
     if (message !== "") {
       addDoc(collection(db, "messages"), {
-        author: "Adrian Silski",
+        author: auth.currentUser.displayName,
         content: message,
         created: Timestamp.now(),
       });

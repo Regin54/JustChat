@@ -4,6 +4,7 @@ import { db } from "../../../firebase.js";
 import { useState, useEffect, useRef } from "react";
 import { collection, onSnapshot, query, orderBy, limit } from "firebase/firestore";
 import MessageBar from "../MessageBar/MessageBar.js";
+import { auth } from "../../../firebase.js";
 
 const Chat = () => {
   const messagesEndRef = useRef(null);
@@ -30,7 +31,9 @@ const Chat = () => {
       <Wrapper>
         {messages &&
           messages.map((message) => {
-            return <Message author={"you"} key={message.created} content={message.content} date={message.created} />;
+            return (
+              <Message author={message.author} key={message.created} content={message.content} date={message.created} />
+            );
           })}
         <div ref={messagesEndRef} />
       </Wrapper>

@@ -8,5 +8,7 @@ export const theme = {
     dirtyWhite: "#ebebeb",
     darkCyan: "#006b70",
     black: "#000",
+    facebookBlue: "#4267B2",
+    googleRed: "#db4437",
   },
 };
