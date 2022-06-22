@@ -28,7 +28,7 @@ export const MessageWrapper = styled.span`
   color: white;
   margin: 2% 0 0 0;
   background-color: ${({ author, theme }) =>
-    (author === "you" && theme.colors.cyan) || (author !== "you" && theme.colors.lightGrey)};
+    (author === "you" && theme.colors.darkCyan) || (author !== "you" && theme.colors.lightGrey)};
   align-self: ${({ author }) => (author === "you" && "flex-end") || (author !== "you" && "flex-start")};
   left: ${({ author }) => (author === "you" && "-10%") || (author !== "you" && "10%")};
 
@@ -69,6 +69,7 @@ export const Author = styled.h2`
   position: relative;
   opacity: 0.7;
   left: 25px;
+  top: 5%;
 
   @media (max-width: 480px) {
     text-align: center;
