@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 export const Wrapper = styled.div`
   width: 30%;
@@ -84,6 +85,11 @@ export const LoginButton = styled.div`
     box-shadow: 4px 6px 6px ${({ theme }) => theme.colors.grey};
     transform: translateX(-2%) translateY(-2%);
   }
+`;
+
+export const SignUpLink = styled(NavLink)`
+  text-decoration: none;
+  color: inherit;
 `;
 
 export const SignUpOptions = styled.div`

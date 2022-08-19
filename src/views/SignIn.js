@@ -2,6 +2,7 @@ import { Wrapper, Input, LoginButton, SignUpOptions, SignInOptions } from "./Sig
 import { BsGoogle } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import { FaFacebookF } from "react-icons/fa";
+import { SignUpLink } from "./SignIn.styles.js";
 
 const SignUp = () => {
   return (
@@ -16,7 +17,9 @@ const SignUp = () => {
       </form>
       <SignUpOptions>
         <p>Dont't have an account?</p>
-        <h3>Create</h3>
+        <SignUpLink to="/signup">
+          <h3>Create</h3>
+        </SignUpLink>
         <p className="or">OR SIGN IN WITH</p>
         <SignInOptions>
           <IconContext.Provider value={{ size: "25%" }}>
