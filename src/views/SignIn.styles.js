@@ -54,7 +54,7 @@ export const Input = styled.input`
   border: none;
   top: 3%;
   margin-top: 40px;
-  box-shadow: 4px 4px 6px ${({ theme }) => theme.colors.grey};
+  box-shadow: 4px 4px 6px ${({ theme }) => theme.colors.gray};
   padding: 3px 12px 3px 12px;
 
   &&:focus {
@@ -78,11 +78,11 @@ export const LoginButton = styled.div`
   cursor: pointer;
   font-weight: 700;
   letter-spacing: 1px;
-  border: 1px solid ${({ theme }) => theme.colors.grey};
+  border: 1px solid ${({ theme }) => theme.colors.gray};
   color: ${({ theme }) => theme.colors.white};
 
   &&:hover {
-    box-shadow: 4px 6px 6px ${({ theme }) => theme.colors.grey};
+    box-shadow: 4px 6px 6px ${({ theme }) => theme.colors.gray};
     transform: translateX(-2%) translateY(-2%);
   }
 `;

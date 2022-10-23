@@ -20,7 +20,7 @@ const MessageBar = () => {
     e.preventDefault();
     if (message !== "") {
       addDoc(collection(db, "messages"), {
-        author: auth.currentUser.displayName,
+        author: auth.currentUser.email,
         content: message,
         created: Timestamp.now(),
       });

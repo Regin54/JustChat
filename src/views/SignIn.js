@@ -1,22 +1,60 @@
+import { useEffect, useState } from "react";
 import { Wrapper, Input, LoginButton, SignUpOptions, SignInOptions } from "./SignIn.styles.js";
 import { BsGoogle } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import { FaFacebookF } from "react-icons/fa";
 import { SignUpLink } from "./SignIn.styles.js";
+import { useAuth } from "../contexts/AuthContext.js";
+import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
+const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { signIn, currentUser, logOut } = useAuth();
+  const navigate = useNavigate();
+
+  const onSubmit = () => {
+    signIn(email, password).then((res) => {
+      console.log(res);
+      if (res) {
+        navigate("/");
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (currentUser != null) {
+      logOut();
+    }
+  }, []);
+
   return (
     <Wrapper>
       <h1>Hello!</h1>
       <h2>Sign In to your account</h2>
 
       <form>
-        <Input name="login" placeholder="E-mail" autoComplete="off" />
-        <Input type="password" name="password" placeholder="Password" />
-        <LoginButton value="Login">Login</LoginButton>
+        <Input
+          name="email"
+          placeholder="E-mail"
+          autoComplete="off"
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <Input
+          type="password"
+          name="password"
+          placeholder="Password"
+          onChange={(event) => {
+            setPassword(event.target.value);
+          }}
+        />
+        <LoginButton value="Login" onClick={onSubmit}>
+          Login
+        </LoginButton>
       </form>
       <SignUpOptions>
-        <p>Dont't have an account?</p>
+        <p>Don't have an account?</p>
         <SignUpLink to="/signup">
           <h3>Create</h3>
         </SignUpLink>
@@ -32,4 +70,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;

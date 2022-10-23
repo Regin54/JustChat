@@ -16,6 +16,6 @@ export const Wrapper = styled.div`
 
   @media (max-width: 480px) {
     background-image: none;
-    background-color: ${({ theme }) => theme.colors.grey};
+    background-color: ${({ theme }) => theme.colors.gray};
   }
 `;
