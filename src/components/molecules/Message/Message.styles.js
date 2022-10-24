@@ -9,7 +9,7 @@ export const TooltipText = styled.span`
   height: 100%;
   border-radius: 6px;
   position: absolute;
-  right: ${({ author }) => (author === auth.currentUser.email && "-170px") || (author !== "you" && "100%")};
+  right: ${({ author }) => (author === auth.currentUser.email && "-45%") || (author !== "you" && "100%")};
   z-index: 1;
 
   @media (max-width: 480px) {

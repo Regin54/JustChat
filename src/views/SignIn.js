@@ -6,10 +6,12 @@ import { FaFacebookF } from "react-icons/fa";
 import { SignUpLink } from "./SignIn.styles.js";
 import { useAuth } from "../contexts/AuthContext.js";
 import { useNavigate } from "react-router-dom";
+import { ErrorContainer } from "../components/atoms/ErrorContainer.js";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const { signIn, currentUser, logOut } = useAuth();
   const navigate = useNavigate();
@@ -17,8 +19,10 @@ const SignIn = () => {
   const onSubmit = () => {
     signIn(email, password).then((res) => {
       console.log(res);
-      if (res) {
+      if (typeof res !== "string") {
         navigate("/");
+      } else if (typeof res === "string") {
+        setError("Something went wrong. Try Again!");
       }
     });
   };
@@ -49,6 +53,7 @@ const SignIn = () => {
             setPassword(event.target.value);
           }}
         />
+        {error && <ErrorContainer>{error}</ErrorContainer>}
         <LoginButton value="Login" onClick={onSubmit}>
           Login
         </LoginButton>

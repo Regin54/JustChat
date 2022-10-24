@@ -10,5 +10,6 @@ export const theme = {
     black: "#000",
     facebookBlue: "#4267B2",
     googleRed: "#db4437",
+    error: "#ff3333",
   },
 };

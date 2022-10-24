@@ -8,7 +8,7 @@ export const LogoutButton = styled.button`
   padding: 0;
   width: 5%;
   height: 10%;
-  right: 2%;
+  right: 1%;
   border: none;
   color: ${({ theme }) => theme.colors.white};
   background-color: transparent;

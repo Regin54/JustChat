@@ -11,24 +11,23 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({});
 
-  const signUp = (email, password) => {
+  const signUp = (email, password, displayName) => {
     return createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        setCurrentUser({ ...userCredential });
+        userCredential.user.displayName = displayName;
       })
       .catch((err) => {
-        console.log(err.message);
+        return err.message;
       });
   };
 
   const signIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        setCurrentUser({ ...userCredential });
         return userCredential;
       })
       .catch((err) => {
-        console.log(err.message);
+        return err.message;
       });
   };
 
