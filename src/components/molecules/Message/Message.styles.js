@@ -9,8 +9,11 @@ export const TooltipText = styled.span`
   height: 100%;
   border-radius: 6px;
   position: absolute;
-  right: ${({ author }) => (author === auth.currentUser.email && "-45%") || (author !== "you" && "100%")};
+  right: ${({ author }) =>
+    (author === auth.currentUser.email && "-25%") || (author !== auth.currentUser.email && "100%")};
   z-index: 1;
+  top: 0;
+  bottom: 0;
 
   @media (max-width: 480px) {
     display: inline;
@@ -29,10 +32,12 @@ export const MessageWrapper = styled.span`
   color: white;
   margin: 2% 0 0 0;
   background-color: ${({ author, theme }) =>
-    (author === auth.currentUser.email && theme.colors.darkCyan) || (author !== "you" && theme.colors.lightGray)};
+    (author === auth.currentUser.email && theme.colors.darkCyan) ||
+    (author !== auth.currentUser.email && theme.colors.lightGray)};
   align-self: ${({ author }) =>
-    (author === auth.currentUser.email && "flex-end") || (author !== "you" && "flex-start")};
-  left: ${({ author }) => (author === auth.currentUser.email && "-10%") || (author !== "you" && "10%")};
+    (author === auth.currentUser.email && "flex-end") || (author !== auth.currentUser.email && "flex-start")};
+  left: ${({ author }) =>
+    (author === auth.currentUser.email && "-10%") || (author !== auth.currentUser.email && "10%")};
 
   &&:nth-child(1) {
     margin: 0;

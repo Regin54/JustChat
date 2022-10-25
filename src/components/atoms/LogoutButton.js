@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 export const LogoutButton = styled.button`
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0;
   width: 5%;
   height: 10%;
-  right: 1%;
+  right: 2%;
   border: none;
   color: ${({ theme }) => theme.colors.white};
   background-color: transparent;

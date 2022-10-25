@@ -160,7 +160,7 @@ export const SignInOptions = styled.div`
   width: 100%;
   bottom: -50%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   .facebook {

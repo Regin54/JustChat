@@ -3,21 +3,37 @@ import { SignUpButton, SignInLink, SignInLinkContainer } from "./SignUp.styles.j
 import { useAuth } from "../contexts/AuthContext.js";
 import { useState } from "react";
 import { ErrorContainer } from "../components/atoms/ErrorContainer.js";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [displayName, setDisplayName] = useState("");
+  const [confirmedPassword, setConfirmedPassword] = useState("");
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const { signUp } = useAuth();
 
+  const checkIfPasswordsMatch = () => {
+    if (password === confirmedPassword) {
+      return true;
+    } else {
+      setError("Passwords do not match. Try again!");
+      return false;
+    }
+  };
+
   const onSubmit = () => {
-    signUp(email, password, displayName).then((res) => {
-      if (res.includes("Error")) {
-        setError("Something went wrong. Try again!");
-      }
-    });
+    if (checkIfPasswordsMatch() === true) {
+      signUp(email, password).then((res) => {
+        if (typeof res !== "string") {
+          navigate("/");
+        } else if (typeof res === "string" && res.includes("Error")) {
+          setError("Something went wrong. Try Again!");
+        }
+      });
+    }
   };
 
   return (
@@ -37,14 +53,6 @@ const SignUp = () => {
           }}
         />
         <Input
-          type="text"
-          name="nickname"
-          placeholder="Nickname"
-          onChange={(event) => {
-            setDisplayName(event.target.value);
-          }}
-        />
-        <Input
           type="password"
           name="password"
           placeholder="Password"
@@ -52,7 +60,14 @@ const SignUp = () => {
             setPassword(event.target.value);
           }}
         />
-        <Input type="password" name="password" placeholder="Confirm Password" />
+        <Input
+          type="password"
+          name="password"
+          placeholder="Confirm Password"
+          onChange={(event) => {
+            setConfirmedPassword(event.target.value);
+          }}
+        />
 
         <SignUpButton
           onClick={() => {

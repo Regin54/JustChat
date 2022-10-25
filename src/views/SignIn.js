@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Wrapper, Input, LoginButton, SignUpOptions, SignInOptions } from "./SignIn.styles.js";
 import { BsGoogle } from "react-icons/bs";
 import { IconContext } from "react-icons";
-import { FaFacebookF } from "react-icons/fa";
 import { SignUpLink } from "./SignIn.styles.js";
 import { useAuth } from "../contexts/AuthContext.js";
 import { useNavigate } from "react-router-dom";
@@ -13,18 +12,30 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const { signIn, currentUser, logOut } = useAuth();
+  const { signIn, currentUser, logOut, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
+
+  const handleResponse = (response) => {
+    if (typeof response !== "string") {
+      navigate("/");
+    } else if (typeof response === "string") {
+      setError("Something went wrong. Try Again!");
+    }
+  };
 
   const onSubmit = () => {
     signIn(email, password).then((res) => {
       console.log(res);
-      if (typeof res !== "string") {
-        navigate("/");
-      } else if (typeof res === "string") {
-        setError("Something went wrong. Try Again!");
-      }
+      handleResponse(res);
     });
+  };
+
+  const signInWithOtherPlatform = (platform) => {
+    if (platform === "google") {
+      signInWithGoogle().then((res) => {
+        handleResponse(res);
+      });
+    }
   };
 
   useEffect(() => {
@@ -66,8 +77,12 @@ const SignIn = () => {
         <p className="or">OR SIGN IN WITH</p>
         <SignInOptions>
           <IconContext.Provider value={{ size: "25%" }}>
-            <BsGoogle className="google" />
-            <FaFacebookF className="facebook" />
+            <BsGoogle
+              className="google"
+              onClick={(e) => {
+                signInWithOtherPlatform(e.target.className.baseVal);
+              }}
+            />
           </IconContext.Provider>
         </SignInOptions>
       </SignUpOptions>

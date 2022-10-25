@@ -1,7 +1,6 @@
 import { MessageWrapper, MessageContent, Author, TooltipText, MessageTime } from "./Message.styles.js";
 
 const Message = ({ author, content, date }) => {
-  console.log(new Date(date * 1000).toString().substring(0, 10));
   return (
     <MessageWrapper author={author}>
       <Author author={author}>{author}</Author>

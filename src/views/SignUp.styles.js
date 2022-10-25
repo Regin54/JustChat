@@ -2,7 +2,7 @@ import { LoginButton, SignUpLink } from "./SignIn.styles";
 import styled from "styled-components";
 
 export const SignUpButton = styled(LoginButton)`
-  top: 8%;
+  top: 14%;
 `;
 
 export const SignInLink = styled(SignUpLink)`
@@ -43,7 +43,7 @@ export const SignInLink = styled(SignUpLink)`
 `;
 
 export const SignInLinkContainer = styled.div`
-  top: 12%;
+  top: 18%;
   position: relative;
   display: flex;
   flex-direction: column;
