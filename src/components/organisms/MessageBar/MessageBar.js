@@ -7,12 +7,14 @@ import { IconContext } from "react-icons";
 import { AiOutlineSend, AiOutlineSmile } from "react-icons/ai";
 import { db } from "../../../firebase.js";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
-import { auth } from "../../../firebase.js";
 import EmojiPicker from "emoji-picker-react";
+import { useAuth } from "../../../contexts/AuthContext.js";
 
 const MessageBar = () => {
   const [message, setMessage] = useState("");
   const [isEmotesVisible, setIsEmotesVisible] = useState(false);
+
+  const { currentUser } = useAuth();
 
   const inputRef = useRef();
   const formRef = useRef();
@@ -24,10 +26,9 @@ const MessageBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(message);
     if (message !== "") {
       addDoc(collection(db, "messages"), {
-        author: auth.currentUser.email,
+        author: currentUser.email,
         content: message,
         created: Timestamp.now(),
       });

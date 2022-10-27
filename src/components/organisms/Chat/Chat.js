@@ -8,12 +8,16 @@ import { useAuth } from "../../../contexts/AuthContext.js";
 import { BiLogOut } from "react-icons/bi";
 import { IconContext } from "react-icons";
 import { LogoutButton } from "../../atoms/LogoutButton.js";
+import { LoadingIcon } from "../../atoms/LoadingIcon.js";
 
 const Chat = () => {
   const messagesEndRef = useRef(null);
-  const [messages, setMessages] = useState([]);
+
   const messagesRef = collection(db, "messages");
   const messagesQuery = query(messagesRef, orderBy("created", "desc"), limit(30));
+
+  const [messages, setMessages] = useState([]);
+  const [isPending, setIsPending] = useState(false);
 
   const { logOut } = useAuth();
 
@@ -22,8 +26,10 @@ const Chat = () => {
   };
 
   useEffect(() => {
+    setIsPending(true);
     onSnapshot(messagesQuery, (snapshot) => {
       setMessages(snapshot.docs.map((doc) => doc.data()).sort((a, b) => a.created - b.created));
+      setIsPending(false);
     });
     scrollToBottom();
   }, []);
@@ -32,7 +38,9 @@ const Chat = () => {
     scrollToBottom();
   }, [messages]);
 
-  return (
+  return isPending ? (
+    <LoadingIcon />
+  ) : (
     <>
       <Wrapper>
         <LogoutButton

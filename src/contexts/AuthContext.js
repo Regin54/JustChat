@@ -57,6 +57,18 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        setCurrentUser(null);
+      }
+    });
+
+    return unsub;
+  }, []);
+
   const value = {
     currentUser,
     signUp,

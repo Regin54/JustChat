@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 export const Wrapper = styled.div`
   width: 30%;
-  height: 70%;
+  height: 75%;
   background-color: ${({ theme }) => theme.colors.cyan};
   box-shadow: 8px 8px 8px black;
   display: flex;
@@ -98,7 +98,7 @@ export const SignUpOptions = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  top: 10%;
+  top: 12%;
 
   h3 {
     top: -10%;
@@ -158,21 +158,10 @@ export const SignUpOptions = styled.div`
 export const SignInOptions = styled.div`
   position: absolute;
   width: 100%;
-  bottom: -50%;
+  bottom: -60%;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .facebook {
-    position: relative;
-    width: 14%;
-    color: ${({ theme }) => theme.colors.facebookBlue};
-    border: 5px solid ${({ theme }) => theme.colors.facebookBlue};
-    border-radius: 50%;
-    padding: 5px 12px 5px 12px;
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
-  }
 
   .google {
     position: relative;
@@ -185,8 +174,7 @@ export const SignInOptions = styled.div`
     cursor: pointer;
   }
 
-  .google:hover,
-  .facebook:hover {
+  .google:hover {
     background-color: ${({ theme }) => theme.colors.dirtyWhite};
   }
 `;

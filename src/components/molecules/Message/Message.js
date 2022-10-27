@@ -3,7 +3,7 @@ import { MessageWrapper, MessageContent, Author, TooltipText, MessageTime } from
 const Message = ({ author, content, date }) => {
   return (
     <MessageWrapper author={author}>
-      <Author author={author}>{author}</Author>
+      <Author author={author}>{author && author.substring(0, author.indexOf("@"))}</Author>
       <TooltipText author={author}>
         <MessageTime>
           {new Date(date * 1000).toString().substring(4, 10)} {new Date(date * 1000).toString().substring(15, 21)}

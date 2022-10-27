@@ -12,6 +12,7 @@ const SignUp = () => {
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [error, setError] = useState("");
   const [isPending, setIsPending] = useState(false);
+  const [displayName, setDisplayName] = useState(null);
 
   const navigate = useNavigate();
 
@@ -38,10 +39,11 @@ const SignUp = () => {
   };
 
   const handleSubmit = () => {
+    console.log(displayName);
     if (checkIfPasswordsMatch() === true) {
       if (email.includes("@")) {
         setIsPending(true);
-        signUp(email, password)
+        signUp(email, password, displayName)
           .then((res) => {
             handleErrors(res);
           })
@@ -65,11 +67,19 @@ const SignUp = () => {
 
       <form>
         <Input
-          name="login"
+          name="email"
           placeholder="E-mail"
           autoComplete="off"
           onChange={(event) => {
             setEmail(event.target.value);
+          }}
+        />
+        <Input
+          name="nickname"
+          placeholder="Display Name"
+          autoComplete="off"
+          onChange={(event) => {
+            setDisplayName(event.target.value);
           }}
         />
         <Input
