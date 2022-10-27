@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Wrapper, EmojiPickerContainer } from "./MessageBar.styles.js";
 import TextArea from "../../atoms/TextArea.js";
 import SendButton from "../../atoms/SendButton.js";
@@ -14,6 +14,10 @@ const MessageBar = () => {
   const [message, setMessage] = useState("");
   const [isEmotesVisible, setIsEmotesVisible] = useState(false);
 
+  const inputRef = useRef();
+  const formRef = useRef();
+  const sendButtonRef = useRef();
+
   const handleChange = (e) => {
     setMessage(e.target.value);
   };
@@ -28,6 +32,9 @@ const MessageBar = () => {
         created: Timestamp.now(),
       });
     }
+
+    setMessage("");
+    inputRef.current.value = "";
   };
 
   const handleEmotes = () => {
@@ -35,22 +42,35 @@ const MessageBar = () => {
   };
 
   const onEmojiClick = (emojiObject) => {
-    console.log(emojiObject.emoji);
     setMessage((message) => setMessage(message + emojiObject.emoji));
+    inputRef.current.value += emojiObject.emoji;
+  };
+
+  const onEnterPress = (e) => {
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      sendButtonRef.current.click();
+    }
   };
 
   return (
     <IconContext.Provider value={{ size: "65%" }}>
-      <Wrapper>
-        <TextArea placeholder="Type your message in..." onChange={handleChange} />
+      <Wrapper onSubmit={handleSubmit} ref={formRef}>
+        <TextArea
+          placeholder="Type your message in..."
+          onChange={handleChange}
+          ref={inputRef}
+          onKeyDown={onEnterPress}
+        />
         <EmotesButton
           onClick={() => {
             handleEmotes();
           }}
+          isEmotesVisible={isEmotesVisible}
         >
           <AiOutlineSmile />
         </EmotesButton>
-        <SendButton onClick={handleSubmit}>
+        <SendButton onClick={handleSubmit} ref={sendButtonRef}>
           <AiOutlineSend />
         </SendButton>
 

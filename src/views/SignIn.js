@@ -6,11 +6,13 @@ import { SignUpLink } from "./SignIn.styles.js";
 import { useAuth } from "../contexts/AuthContext.js";
 import { useNavigate } from "react-router-dom";
 import { ErrorContainer } from "../components/atoms/ErrorContainer.js";
+import { LoadingIcon } from "../components/atoms/LoadingIcon.js";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isPending, setIsPending] = useState(false);
 
   const { signIn, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
@@ -24,20 +26,30 @@ const SignIn = () => {
   };
 
   const onSubmit = () => {
-    signIn(email, password).then((res) => {
-      handleResponse(res);
-    });
-  };
-
-  const signInWithOtherPlatform = (platform) => {
-    if (platform === "google") {
-      signInWithGoogle().then((res) => {
+    setIsPending(true);
+    signIn(email, password)
+      .then((res) => {
         handleResponse(res);
+      })
+      .finally(() => {
+        setIsPending(false);
       });
-    }
   };
 
-  return (
+  const signInWithOtherPlatform = () => {
+    setIsPending(true);
+    signInWithGoogle()
+      .then((res) => {
+        handleResponse(res);
+      })
+      .finally(() => {
+        setIsPending(false);
+      });
+  };
+
+  return isPending ? (
+    <LoadingIcon />
+  ) : (
     <Wrapper>
       <h1>Hello!</h1>
       <h2>Sign In to your account</h2>
@@ -80,7 +92,7 @@ const SignIn = () => {
             <BsGoogle
               className="google"
               onClick={(e) => {
-                signInWithOtherPlatform(e.target.className.baseVal);
+                signInWithOtherPlatform();
               }}
             />
           </IconContext.Provider>

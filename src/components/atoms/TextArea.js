@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Input = styled.textarea`
   position: relative;
   width: 80%;
-  height: 100%;
+  height: 95%;
   border: none;
   font-size: 28px;
   background: ${({ theme }) => theme.colors.dirtyWhite};

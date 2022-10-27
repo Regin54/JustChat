@@ -4,12 +4,14 @@ import { useAuth } from "../contexts/AuthContext.js";
 import { useState } from "react";
 import { ErrorContainer } from "../components/atoms/ErrorContainer.js";
 import { useNavigate } from "react-router-dom";
+import { LoadingIcon } from "../components/atoms/LoadingIcon.js";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [error, setError] = useState("");
+  const [isPending, setIsPending] = useState(false);
 
   const navigate = useNavigate();
 
@@ -24,19 +26,37 @@ const SignUp = () => {
     }
   };
 
-  const onSubmit = () => {
-    if (checkIfPasswordsMatch() === true) {
-      signUp(email, password).then((res) => {
-        if (typeof res !== "string") {
-          navigate("/");
-        } else if (typeof res === "string" && res.includes("Error")) {
-          setError("Something went wrong. Try Again!");
-        }
-      });
+  const handleErrors = (response) => {
+    if (typeof res !== "string") {
+      navigate("/");
+    } else if (response.includes("auth/email-already-in-use")) {
+      setError("E-mail already in use. Try again!");
+    } else if (typeof res === "string" && response.includes("Error")) {
+      console.log(response);
+      setError("Something went wrong. Try again!");
     }
   };
 
-  return (
+  const handleSubmit = () => {
+    if (checkIfPasswordsMatch() === true) {
+      if (email.includes("@")) {
+        setIsPending(true);
+        signUp(email, password)
+          .then((res) => {
+            handleErrors(res);
+          })
+          .finally(() => {
+            setIsPending(false);
+          });
+      } else {
+        setError("Invalid E-mail. Try again!");
+      }
+    }
+  };
+
+  return isPending ? (
+    <LoadingIcon />
+  ) : (
     <Wrapper>
       <h1>Hello!</h1>
       <h2>Sign Up to JustChat</h2>
@@ -71,7 +91,7 @@ const SignUp = () => {
 
         <SignUpButton
           onClick={() => {
-            onSubmit();
+            handleSubmit();
           }}
         >
           Sign Up
