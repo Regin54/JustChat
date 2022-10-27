@@ -25,6 +25,7 @@ const Chat = () => {
     onSnapshot(messagesQuery, (snapshot) => {
       setMessages(snapshot.docs.map((doc) => doc.data()).sort((a, b) => a.created - b.created));
     });
+    scrollToBottom();
   }, []);
 
   useEffect(() => {

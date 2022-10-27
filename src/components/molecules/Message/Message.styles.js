@@ -6,13 +6,12 @@ export const TooltipText = styled.span`
   width: 200px;
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
-  height: 100%;
   border-radius: 6px;
   position: absolute;
-  right: ${({ author }) =>
-    (author === auth.currentUser.email && "-25%") || (author !== auth.currentUser.email && "100%")};
+  right: ${({ author }) => author !== auth.currentUser.email && "100%"};
+  left: ${({ author }) => author === auth.currentUser.email && "99%"};
   z-index: 1;
-  top: 0;
+  top: 10%;
   bottom: 0;
 
   @media (max-width: 480px) {
@@ -31,6 +30,7 @@ export const MessageWrapper = styled.span`
   border-radius: 45px;
   color: white;
   margin: 2% 0 0 0;
+  white-space: pre-wrap;
   background-color: ${({ author, theme }) =>
     (author === auth.currentUser.email && theme.colors.darkCyan) ||
     (author !== auth.currentUser.email && theme.colors.lightGray)};
@@ -72,11 +72,12 @@ export const MessageContent = styled.p`
 `;
 
 export const Author = styled.h2`
-  display: ${({ author }) => (author === auth.currentUser.email && "none") || (author !== "you" && "inline")};
+  display: ${({ author }) =>
+    (author === auth.currentUser.email && "none") || (author !== auth.currentUser.email && "inline")};
   position: relative;
-  opacity: 0.7;
+  opacity: 0.6;
   left: 25px;
-  top: 5%;
+  top: 15px;
 
   @media (max-width: 480px) {
     text-align: center;

@@ -10,3 +10,9 @@ export const Wrapper = styled.div`
   background-color: none;
   border-radius: 15px 15px 0 0;
 `;
+
+export const EmojiPickerContainer = styled.div`
+  position: absolute;
+  top: -500%;
+  right: 0;
+`;

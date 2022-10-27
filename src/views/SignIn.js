@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Wrapper, Input, LoginButton, SignUpOptions, SignInOptions } from "./SignIn.styles.js";
 import { BsGoogle } from "react-icons/bs";
 import { IconContext } from "react-icons";
@@ -12,7 +12,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const { signIn, currentUser, logOut, signInWithGoogle } = useAuth();
+  const { signIn, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
 
   const handleResponse = (response) => {
@@ -25,7 +25,6 @@ const SignIn = () => {
 
   const onSubmit = () => {
     signIn(email, password).then((res) => {
-      console.log(res);
       handleResponse(res);
     });
   };
@@ -38,16 +37,12 @@ const SignIn = () => {
     }
   };
 
-  useEffect(() => {
-    if (currentUser != null) {
-      logOut();
-    }
-  }, []);
-
   return (
     <Wrapper>
       <h1>Hello!</h1>
       <h2>Sign In to your account</h2>
+
+      {error && <ErrorContainer>{error}</ErrorContainer>}
 
       <form>
         <Input
@@ -64,8 +59,13 @@ const SignIn = () => {
             setPassword(event.target.value);
           }}
         />
-        {error && <ErrorContainer>{error}</ErrorContainer>}
-        <LoginButton value="Login" onClick={onSubmit}>
+
+        <LoginButton
+          value="Login"
+          onClick={() => {
+            onSubmit();
+          }}
+        >
           Login
         </LoginButton>
       </form>

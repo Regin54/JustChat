@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, createContext } from "react";
+import { useContext, useState, createContext, useEffect } from "react";
 import { auth } from "../firebase";
 import {
   createUserWithEmailAndPassword,
@@ -6,6 +6,7 @@ import {
   signOut,
   signInWithPopup,
   GoogleAuthProvider,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 const AuthContext = createContext();
@@ -17,10 +18,10 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({});
 
-  const signUp = (email, password, displayName) => {
+  const signUp = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        userCredential.user.displayName = displayName;
+        setCurrentUser({ ...userCredential });
         return userCredential;
       })
       .catch((err) => {
@@ -31,6 +32,7 @@ export const AuthProvider = ({ children }) => {
   const signIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        setCurrentUser({ ...userCredential });
         return userCredential;
       })
       .catch((err) => {
@@ -51,17 +53,9 @@ export const AuthProvider = ({ children }) => {
 
   const logOut = () => {
     return signOut(auth).then(() => {
-      console.log("user signed out", currentUser);
+      setCurrentUser(null);
     });
   };
-
-  useEffect(() => {
-    const unsub = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-    });
-
-    return unsub;
-  }, []);
 
   const value = {
     currentUser,
