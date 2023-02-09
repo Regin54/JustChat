@@ -39,7 +39,6 @@ const SignUp = () => {
   };
 
   const handleSubmit = () => {
-    console.log(displayName);
     if (checkIfPasswordsMatch() === true) {
       if (email.includes("@")) {
         setIsPending(true);

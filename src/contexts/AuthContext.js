@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   const signUp = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        setCurrentUser({ ...userCredential });
+        setCurrentUser(userCredential)
         return userCredential;
       })
       .catch((err) => {
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   const signIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        setCurrentUser({ ...userCredential });
+        setCurrentUser(userCredential);
         return userCredential;
       })
       .catch((err) => {

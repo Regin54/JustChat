@@ -25,10 +25,11 @@ const MessageBar = () => {
   };
 
   const handleSubmit = (e) => {
+    console.log(currentUser.email || currentUser.user.email);
     e.preventDefault();
     if (message !== "") {
       addDoc(collection(db, "messages"), {
-        author: currentUser.email,
+        author: currentUser.email || currentUser.user.email,
         content: message,
         created: Timestamp.now(),
       });
